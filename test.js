@@ -25,7 +25,7 @@ describe('Testing generate url function', function () {
 });
 
 describe('Testing makeRequest function', function () {
-	this.timeout(5000);
+	this.timeout(10000);
 
 	it('1. should make request and get response', function (done) {
 		var strSubUrl	= 'word.json/happy/relatedWords';
@@ -36,6 +36,43 @@ describe('Testing makeRequest function', function () {
 		var strUrl = lib.generateUrl(strSubUrl, objQuery);
 		lib.makeRequest(strUrl).then(function (objResponse) {
 			expect(objResponse[0].words).to.include.members([ 'unhappy', 'sad' ]);
+			done();
+		})
+	});
+
+});
+
+describe('Testing getSynonyms function', function () {
+	this.timeout(10000);
+
+	it('1. should make request and get response', function (done) {
+
+		lib.getSynonyms('happy').then(function (arrSynonyms) {
+			expect(arrSynonyms).to.include.members([
+											      "lucky",
+											      "fortunate",
+											      "successful",
+											      "prosperous",
+											      "contented",
+											      "joyous",
+											      "dexterous",
+											      "ready",
+											      "apt",
+											      "felicitous"
+											    ]);
+			done();
+		})
+	});
+
+});
+
+describe('Testing getAntonyms function', function () {
+	this.timeout(10000);
+
+	it('1. should make request and get response', function (done) {
+
+		lib.getAntonyms('happy').then(function (arrSynonyms) {
+			expect(arrSynonyms).to.include.members([ 'unhappy', 'sad' ]);
 			done();
 		})
 	});

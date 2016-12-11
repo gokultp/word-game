@@ -43,5 +43,43 @@ var generateUrl	= function (strSubUrl, objOptions) {
 	return BASE_URL + encodeURI(strSubUrl)
 }
 
+/**
+ * finds synonyms of a given word
+ * @param {String} strWord The word
+ * @return {Array} array of synonyms
+ */
+
+ exports.getSynonyms = function (strWord) {
+	var strSubUrl	= 'word.json/' + strWord + '/relatedWords';
+	var objQuery	= new Object();
+	var strUrl;
+	objQuery.relationshipTypes			= 'synonym';
+	objQuery.limitPerRelationshipType 	= 10;
+	strUrl	= generateUrl(strSubUrl, objQuery);
+	return makeRequest(strUrl).then(function (objResponse) {
+		return objResponse[0].words;
+	})
+ };
+
+ /**
+  * finds synonyms of a given word
+  * @param {String} strWord The word
+  * @return {Array} array of synonyms
+  */
+
+  exports.getAntonyms = function (strWord) {
+ 	var strSubUrl	= 'word.json/' + strWord + '/relatedWords';
+ 	var objQuery	= new Object();
+ 	var strUrl;
+ 	objQuery.relationshipTypes			= 'antonym';
+ 	objQuery.limitPerRelationshipType 	= 10;
+ 	strUrl	= generateUrl(strSubUrl, objQuery);
+ 	return makeRequest(strUrl).then(function (objResponse) {
+ 		return objResponse[0].words;
+ 	})
+  };
+
+
+
 exports.generateUrl	= generateUrl;
 exports.makeRequest	= makeRequest;
