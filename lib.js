@@ -11,3 +11,23 @@ var makeRequest	= function (strUrl) {
 
 	return request(objOptions);
 }
+
+
+var generateUrl	= function (strSubUrl, objOptions) {
+	var arrFields;
+	var strUrl	= BASE_URL + strSubUrl;
+
+	if(!objOptions){
+		return encodeURI(strUrl);
+	}
+	arrFields	= Object.keys(objOptions);
+	arrFields.forEach(function (strField, index) {
+		if(index == 0){
+			strUrl += '/'+ strField + '=' + objOptions[strField];
+		}
+		else {
+			strUrl += '&'+ strField + '=' + objOptions[strField];
+		}
+	})
+	return encodeURI(strUrl)
+}
