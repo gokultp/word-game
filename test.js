@@ -71,8 +71,35 @@ describe('Testing getAntonyms function', function () {
 
 	it('1. should make request and get response', function (done) {
 
-		lib.getAntonyms('happy').then(function (arrSynonyms) {
-			expect(arrSynonyms).to.include.members([ 'unhappy', 'sad' ]);
+		lib.getAntonyms('happy').then(function (arrAntonyms) {
+			expect(arrAntonyms).to.include.members([ 'unhappy', 'sad' ]);
+			done();
+		})
+	});
+
+});
+
+
+describe('Testing getDefinition function', function () {
+	this.timeout(10000);
+
+	it('1. should make request and get response', function (done) {
+
+		lib.getDefinitions('happy').then(function (arrDefinitions) {
+			expect(arrDefinitions).to.have.length.of.at.least(1);
+			done();
+		})
+	});
+
+});
+
+describe('Testing getExamples function', function () {
+	this.timeout(10000);
+
+	it('1. should make request and get response', function (done) {
+
+		lib.getExamples('happy').then(function (arrExamples) {
+			expect(arrExamples).to.have.length.of.at.least(1);
 			done();
 		})
 	});
